@@ -1,0 +1,97 @@
+<div class="flex min-h-screen items-center justify-center bg-base-200 px-6">
+    <div class="card w-full max-w-2xl bg-base-100 shadow-xl m-12">
+        <div class="card-body">
+            <div class="flex flex-col justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-16 ">
+                    <path
+                        d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+                </svg>
+                <!-- Header -->
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold">Create your account</h2>
+                    <p class="text-base-content/70 mt-1">
+                        Join us by filling in the details below
+                    </p>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form [formGroup]="registerForm" class="mt-6 space-y-5" (ngSubmit)="register()">
+
+                <!-- Name -->
+                <div class="form-control flex flex-col">
+                   <text-input label="Display Name" placeholder="John Doe" formControlName="displayName"></text-input> 
+                </div>
+
+                <!-- Gender & DOB -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Gender</span>
+                        </label>
+                        <select class="select select-bordered" required formControlName="gender" >
+                            <option disabled selected>Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                       <text-input label="Date of Birth" type="date" formControlName="dob" [maxDate]="getMaxDate()"></text-input> 
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-control flex flex-col">
+                    <label class="label">
+                        <span class="label-text">About You (optional)</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered w-full" placeholder="A short description about yourself"
+                        rows="3" formControlName="description"></textarea>
+                </div>
+
+                <!-- City & Country -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                       <text-input label="City" formControlName="city" placeholder="Islamabad"></text-input> 
+                    </div>
+
+                    <div class="form-control">
+                       <text-input label="Country" formControlName="country" placeholder="Pakistan"></text-input> 
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-control flex flex-col">
+                    <text-input label="Email" type="email" formControlName="email" placeholder="johndoe@example.com"></text-input> 
+                </div>
+
+                <!-- Password -->
+                <div class="form-control">
+                    <text-input label="Password" type="password" formControlName="password" placeholder="********"></text-input> 
+                </div>
+                <div class="form-control">
+                    <text-input label="Confirm Password" type="password" formControlName="confirmPassword" placeholder="********"></text-input> 
+                </div>
+
+                <!-- Submit -->
+                <div class="form-control mt-6">
+                    <button class="btn btn-primary w-full" [disabled]="!registerForm.valid">
+                        Create Account
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Footer -->
+            <p class="mt-6 text-center text-sm text-base-content/70">
+                Already have an account?
+                <a routerLink="/signin" class="link link-primary font-semibold">
+                    Sign in
+                </a>
+            </p>
+
+        </div>
+    </div>
+</div>

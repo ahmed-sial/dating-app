@@ -1,0 +1,32 @@
+<label class="label">
+  <span class="label-text">{{ label() }}</span>
+</label>
+
+<input [type]="type()" [placeholder]="placeholder()" class="input input-bordered w-full"
+  [max]="maxDate()"
+  [class.input-error]="control.invalid && (control.touched || control.dirty)" [formControl]="control" />
+
+@if (control.hasError('minlength') && (control.touched || control.dirty)) {
+  <label class="label">
+    <span class="label-text-alt text-error">
+      Length should be at least
+      {{ control.errors?.['minlength']?.requiredLength }} characters.
+    </span>
+  </label>
+}
+
+@if (control.hasError('email') && (control.touched || control.dirty)) {
+  <label class="label">
+    <span class="label-text-alt text-error">
+      Email is not valid.
+    </span>
+  </label>
+}
+
+@if (control.hasError('passwordMismatch') && (control.touched || control.dirty)) {
+  <label class="label">
+    <span class="label-text-alt text-error">
+      Password does not match.
+    </span>
+  </label>
+}

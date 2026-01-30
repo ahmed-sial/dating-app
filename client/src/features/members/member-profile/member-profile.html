@@ -1,0 +1,30 @@
+@if (member(); as member) {
+        <p class="text-lg"><span class="font-semibold">Last Active: </span>{{ member.lastActive | timeAgo }}</p>
+        <p class="text-lg"><span class="font-semibold">Member since: </span>{{ member.createdAt | date: 'mediumDate' }}</p>
+        <p class="text-lg"><span class="font-semibold">Date of birth: </span>{{ member.dateOfBirth | date: 'mediumDate'}}</p>
+        <p class="text-lg"><span class="font-semibold">Gender: </span> {{ member.gender | titlecase}}</p>
+        <h2 class="text-2xl text-primary mt-2">About {{member.displayName}}</h2>
+    @if (!isInEditMode()) {
+        <p class="text-lg">{{ member.description }}</p>
+    } @else {
+        <form #editForm="ngForm" (ngSubmit)="updateProfile()" class="mt-4 flex gap-4 flex-col">
+            <label class="floating-label">
+                <span>Display Name</span>
+                <input name="displayName" class="input w-full" [(ngModel)]="editableMember.displayName" placeholder="Display Name">
+            </label>
+            <label class="floating-label">
+                <span>Description</span>
+                <textarea name="description" class="textarea w-full" [(ngModel)]="editableMember.description" placeholder="Description"></textarea>
+            </label>
+            <label class="floating-label">
+                <span>City</span>
+                <input name="city" class="input w-full" [(ngModel)]="editableMember.city" placeholder="City">
+            </label>
+            <label class="floating-label">
+                <span>Country</span>
+                <input name="country" class="input w-full" [(ngModel)]="editableMember.country" placeholder="Country">
+            </label>
+            <button type="submit" class="btn btn-success" [disabled]="!editForm.dirty">Update</button>
+        </form>
+    }
+}

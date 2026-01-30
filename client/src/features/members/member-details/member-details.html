@@ -1,0 +1,71 @@
+@if (member(); as member) {
+  <div class="bg-base-200 min-h-screen w-full">
+    <div class="mx-auto max-w-none min-h-screen grid grid-cols-1 lg:grid-cols-4 gap-6 p-6">
+
+      <div class="card bg-base-100 shadow-lg h-full">
+        <div class="card-body items-center text-center gap-4 h-full">
+
+          <div class="avatar">
+            <div class="w-sm rounded-full object-cover">
+              <img [src]="member.imageUrl ?? '/user.png'" />
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-2xl font-semibold text-primary">
+              {{ member.displayName }}, {{ member.dateOfBirth | dobToAge }}
+            </h2>
+            <p class="text-xl text-base-content/60">
+                {{ member.city }}, {{ member.country }}
+            </p>
+          </div>
+
+          <div class="divider"></div>
+
+          <ul class="menu w-full text-left">
+            <li>
+            @for (tab of tabs | keyvalue; track tab.key) {
+              <a class="text-lg transition hover:text-primary active:bg-transparent focus:bg-transparent cursor-pointer" [routerLink]="tab.value" routerLinkActive="text-primary">{{ tab.key }}</a>
+            }
+            </li>
+          </ul>
+
+          <div class="flex gap-3 w-full pt-2 mt-auto">
+            <button class="btn btn-info flex-1" (click)="onGoBackClick()">Go back</button>
+            @if (!isCurrentUser()) {
+              <button class="btn btn-primary flex-1">Like user</button>
+            }
+          </div>
+
+        </div>
+      </div>
+
+     <div class="card bg-base-100 shadow-lg lg:col-span-3 h-full">
+    <div class="card-body h-full flex flex-col overflow-hidden">
+
+      <div class="flex justify-between border-b shrink-0">
+        <h1 class="text-4xl font-semibold text-primary pb-4">
+          {{ title() }}
+        </h1>
+        @if (isCurrentUser()) {
+          <button class="btn btn-outline btn-primary"
+                  (click)="onEditClick()">
+            {{ editMode() ? 'Cancel' : 'Edit' }}
+          </button>
+        }
+      </div>
+
+      <!-- THIS is the scroll container owner -->
+      <div class="flex-1 overflow-hidden pt-4">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div> 
+    </div>
+  </div>
+} @else {
+    <div class="m-4 text-4xl">
+        USER NOT FOUND!
+    </div>
+}

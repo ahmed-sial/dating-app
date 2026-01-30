@@ -1,0 +1,49 @@
+@if (!memberService.editMode()) {
+  @if (memberPhotos(); as photos) {
+    <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+      @if (photos.length > 0) {
+        @for (photo of photos; track photo.id) {
+
+          <div class="relative group aspect-square overflow-hidden rounded-2xl">
+
+            <img
+              [src]="photo.url"
+              alt="User Image"
+              class="w-full h-full object-cover"
+            />
+
+            @if (currentUser?.id === memberService.member()?.id) {
+
+              <div>
+                <app-star-button
+                  [selected]="photo.url === memberService.member()?.imageUrl"
+                  [disabled]="photo.url === memberService.member()?.imageUrl"
+                  (clickEvent)="setProfileImage(photo)"
+                ></app-star-button>
+              </div>
+
+              <div
+                class="absolute bottom-2 left-2 z-50
+                       opacity-0 group-hover:opacity-100
+                       transition-opacity duration-200"
+              >
+                <app-delete-button
+                  [disabled]="photo.url === memberService.member()?.imageUrl"
+                  (clickEvent)="deletePhoto(photo.id)"
+                ></app-delete-button>
+              </div>
+
+            }
+
+          </div>
+        }
+      }
+    </div>
+  }
+} @else {
+  <app-image-upload
+    (uploadFile)="onUploadImage($event)"
+    [loading]="loading()"
+  ></app-image-upload>
+}
+
